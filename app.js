@@ -112,20 +112,33 @@ app.post('/upload/jobinfo',function(req,res){
 //处理职位加载列表
 app.post('/api/jobinfo',function(req,res){
 	var {user} = req.body;
-	Info.find({user},function(err,doc){
+	if (user == 'admin'){
+		Info.count({},function(err,num){
          if (err) {
          	return
          };
          res.json({
          	code:0,
-         	list:doc
+         	num:num
          })
 	})
+	}else{
+	Info.count({user},function(err,num){
+         if (err) {
+         	return
+         };
+         res.json({
+         	code:0,
+         	num:num
+         })
+	})
+}
 });
 //处理职位列表翻页
 app.post('/api/pages',function(req,res){
 	var {user,page} = req.body;
-	Info.find({user},null,{skip: (page-1)*5, limit: 5},function(err,doc){
+	if(user == "admin"){
+		Info.find({},null,{skip: (page-1)*5, limit: 5},function(err,doc){
          if (err) {
          	return
          };
@@ -134,6 +147,18 @@ app.post('/api/pages',function(req,res){
          	list:doc
          })
 	})
+	}else{
+		Info.find({user},null,{skip: (page-1)*5, limit: 5},function(err,doc){
+         if (err) {
+         	return
+         };
+         res.json({
+         	code:0,
+         	list:doc
+         })
+	})
+	}
+	
 });
 //处理职位修改
 app.post('/update/jobinfo',function(req,res){

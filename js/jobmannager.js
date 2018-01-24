@@ -1,3 +1,23 @@
+/* 
+                       .::::. 
+                     .::::::::. 
+                    :::::::::::  FUCK ME 
+                ..:::::::::::' 
+              '::::::::::::' 
+                .:::::::::: 
+           '::::::::::::::.. 
+                ..::::::::::::. 
+              ``:::::::::::::::: 
+               ::::``:::::::::'        .:::. 
+              ::::'   ':::::'       .::::::::. 
+            .::::'      ::::     .:::::::'::::. 
+           .:::'       :::::  .:::::::::' ':::::. 
+          .::'        :::::.:::::::::'      ':::::. 
+         .::'         ::::::::::::::'         ``::::. 
+     ...:::           ::::::::::::'              ``::. 
+    ```` ':.          ':::::::::'                  ::::.. 
+                       '.:::::'                    ':'````.. 
+*/
 var $InputFile = $("#InputFile"),$showImg = $("#showImg"),$jobname = $("#jobname"),$cpname = $("#cpname"),
 $jobtype = $("#jobtype"),$jobstr = $("#jobstr"),$salary = $("#salary"),$jobexp = $("#jobexp");
 //加载页面前检查登录cookie
@@ -5,28 +25,35 @@ check_login();
 var info_count;
 var page_num = 1;
 var storage=window.localStorage;
-storage.page = 1;
 load_pages();
-load_list(page_num);
+load_list(storage.page);
 $("#update_btn").hide();
 //进入加载数据
 //加载列表
-function load_list(page) {
+function load_list(page=1) {
 	$.post('/api/pages',{user:$.cookie('username'),page:page} ,function(data) {
 	//console.log(data);
 	//第二个参数必须是对象
-	if (!data.list.length) return;
+	
+	if (!data.list.length){
+		check_info();
+		return;
+	} 
 	var html = template("listTemp",data);
      $("#job_list").append(html); 
-      change_index(page);  
+     change_index(page); 
+     check_info();
 });
 }
 //首先获取全部数据加载分页
 function load_pages() {
 	// body...
 	$.post('/api/jobinfo',{user:$.cookie('username')},function(data){
-	if (!data.list.length) return;
-	info_count = data.list.length;
+		if(data.num !=0){
+		info_count = data.num;
+	}else{
+		info_count = 1;
+	}
 }).then(function(){
 	$('.M-box1').pagination({
     totalData: info_count,
@@ -48,9 +75,13 @@ function load_pages() {
 function check_login(argument) {
 	// body...
 	var user = $.cookie("username");
-		if (user && user!= "null")
+		if (user && user!= "null"){
 			$("#login_status").html(`<span >${user}</span>
 				<span id="exit" >注销</span> `);
+			if(user == 'admin'){
+				$("#nav_ul").append(`<li class="user_admin"><span>用户管理</span></li>`)
+			}
+		}
 		else{
 			alert("请先登录");
 			location.href="index.html";
@@ -59,6 +90,7 @@ function check_login(argument) {
 //注销功能
 $("#login_status").on('click','#exit',function(){
 	$.cookie('username',null, { expires: 7, path: '/' }); 
+	storage.page = 1;
 	check_login();
 });
 //动态上传公司图片
@@ -131,6 +163,7 @@ $("#add_btn").on('click',function(){
 			var html = template("listTemp",{list:[res.msg]});
 			$("#job_list").append(html);
 			change_index(storage.page);
+			check_info();
 		}else{
 			load_pages();
 		}
@@ -204,5 +237,19 @@ function change_index(page_num) {
 	// body...
 	for(let i = 0,l = $(".add_").length;i<l;i++){
 		$($(".add_")[i]).find('._index').text(i+1+(page_num-1)*5);
+	}
+}
+//跳转到用户管理页面
+$("#nav_ul").on('click','.user_admin',function(){
+	location.href="userinfo.html";
+});
+//检查是否有数据
+function check_info(argument) {
+	console.log($("#job_list").find(".add_").length)
+	if($("#job_list").find(".add_").length == 0){
+		$("#job_list").after(`<p id="null_info">请先添加数据</p>`);
+	}else{
+		console.log("2");
+		$(".warp").find('#null_info').remove();
 	}
 }

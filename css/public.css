@@ -1,0 +1,82 @@
+header{
+	width: 100%;
+	height: 50px;
+	background: #222222;
+}
+.header_box{
+	width: 1200px;
+	height: 50px;
+	color: #ccc;
+	margin: auto;
+	line-height: 50px;
+}
+.header_box ul{
+	width: 280px;
+	float: left;
+	padding: 0;
+	list-style: none;
+	display: flex;
+	justify-content: space-between;
+}
+.header_box ul li{
+	cursor: pointer;
+
+}
+.header_box ul li:nth-child(3){
+	color: #fff;
+}
+.header_box ul li:hover{
+	color: #fff;
+}
+.header_box p{
+	float: right;
+}
+.header_box span{
+	cursor: pointer;
+}
+.header_box span:hover{
+	color: #379BE9;
+}
+.warp{
+	margin-top: 20px;
+	width: 100%;
+}
+.warp p{
+	width: 1200px;
+	height: 50px;
+	margin: auto;
+	line-height: 50px;
+}
+.warp p span{
+	float: left;
+}
+.warp p .tj{
+	float: right;
+	margin-top: 10px;
+}
+td{
+	border: 1px solid #ddd;
+}
+td{
+	border: 1px solid #ddd;
+	padding-left: 6px;
+	height: 50px;
+	font-size: 12px;
+}
+td span{
+	color: #337ab7;
+	margin-right: 5px;
+	cursor: pointer;
+}
+td img{
+	width: 50px;
+	height: 50px;
+}
+.pages{
+	width: 1200px;
+	margin:auto;
+	margin-top: 20px;
+}
+.pages .M-box1{
+	float: right;
+}

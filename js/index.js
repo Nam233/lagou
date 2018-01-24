@@ -40,8 +40,7 @@ $('#login_btn').on('click',function(){
 	    	 }else{
 	    	 	alert(data.msg);
 	    	 	$("#login_psw").val('');
-	    	 }
-	    	 
+	    	 }   	 
 	    }).then(function(){
 	    	$("#login_psw").val('');
 	    	$("#login_user").val('');
@@ -102,15 +101,24 @@ $("#login_status").on('click','#exit',function(){
 function check_login(argument) {
 	// body...
 	var user = $.cookie("username");
-		if (user && user!= "null")
+		if (user && user!= "null"){
 			$("#login_status").html(`<span >${user}</span>
 				<span id="exit" >注销</span> `);
+			if(user == 'admin'){
+				$("#nav_ul").append(`<li class="user_admin"><span>用户管理</span></li>`)
+			}
+		}
 		else{
 			$("#login_status").html(`<span id="login" data-toggle="modal" data-target="#login_m">登录</span>
 				<span id="regist" data-toggle="modal" data-target="#regist_m">注册</span>`);
+			$("#nav_ul").find('.user_admin').remove();
 		}
 }
 //跳转到职位管理页面
 $("#turn_to").on('click',function(){
 	location.href="jobmannager.html";
+});
+//跳转到用户管理页面
+$("#nav_ul").on('click','.user_admin',function(){
+	location.href="userinfo.html";
 });
