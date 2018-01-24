@@ -233,7 +233,7 @@ $("#job_list").on('click','.del',function(){
 	});
 })
 //遍历序号自动修改
-function change_index(page_num) {
+function change_index(page_num=1) {
 	// body...
 	for(let i = 0,l = $(".add_").length;i<l;i++){
 		$($(".add_")[i]).find('._index').text(i+1+(page_num-1)*5);
