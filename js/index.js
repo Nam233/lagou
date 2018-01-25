@@ -22,6 +22,7 @@
 $(document).ready(function(){ 
 	check_login();
 }); 
+var storage=window.localStorage;
 //登录按钮触发事件
 $('#login_btn').on('click',function(){
 		event.preventDefault();
@@ -112,6 +113,7 @@ function check_login(argument) {
 			$("#login_status").html(`<span id="login" data-toggle="modal" data-target="#login_m">登录</span>
 				<span id="regist" data-toggle="modal" data-target="#regist_m">注册</span>`);
 			$("#nav_ul").find('.user_admin').remove();
+			storage.page = 1;
 		}
 }
 //跳转到职位管理页面

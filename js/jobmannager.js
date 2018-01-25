@@ -84,13 +84,13 @@ function check_login(argument) {
 		}
 		else{
 			alert("请先登录");
+			storage.page = 1;
 			location.href="index.html";
 		}
 }
 //注销功能
 $("#login_status").on('click','#exit',function(){
 	$.cookie('username',null, { expires: 7, path: '/' }); 
-	storage.page = 1;
 	check_login();
 });
 //动态上传公司图片

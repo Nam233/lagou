@@ -4,14 +4,14 @@ var mongoose = require('mongoose');
 var upload = require("./util/upload");
 
 mongoose.Promise = global.Promise; //node下面 没有 window ，全局是global
-// mongoose.connect("mongodb://10.7.187.61:27017/songyufeng")//为了兼容老的mongdb链接，加了以后mongoose会帮我们增加很多配置
-//         .then(function(db){
-//         	console.log("数据库链接成功！")
-//         })
-mongoose.connect("mongodb://127.0.0.1:27017/songyufeng")//寝室用
+mongoose.connect("mongodb://10.7.187.61:27017/songyufeng")//为了兼容老的mongdb链接，加了以后mongoose会帮我们增加很多配置
         .then(function(db){
-            console.log("数据库链接成功！")
+        	console.log("数据库链接成功！")
         })
+// mongoose.connect("mongodb://127.0.0.1:27017/songyufeng")//寝室用
+//         .then(function(db){
+//             console.log("数据库链接成功！")
+//         })
 var app = express(); //使用expree 工厂函数
 var User = require('./model/user');
 var Info = require('./model/jobinfo')
@@ -84,6 +84,19 @@ app.post("/api/regist",function(req,res){
     });//保存到数据库
     })
 });
+//处理用户信息调用
+app.post('/userinfo',function(req,res){
+    User.find({},function(err,doc){
+       if (err) {
+            console.log(err);
+            return
+         };
+         res.json({
+             code:0,
+             list:doc
+         })
+    })
+})
 //处理上传图片
 app.post('/upload',  function(req,res) {
 	/*optional stuff to do after success */

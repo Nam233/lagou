@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>用户管理</title>
-	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="pagination.css">
 	<link rel="stylesheet" type="text/css" href="public.css">
 	<script type="text/javascript"></script>
@@ -47,39 +47,24 @@
 		      <div class="modal-body">
 		      	<form>
 		      		<div class="form-group">
-		      			<label for="exampleInputEmail1">公司logo</label>
-					    <label for="InputFile">选择文件</label>
-					    <input type="file" id="InputFile">
-					    <img id="showImg" src="" alt="" style="height:50px;width:50px">
-					</div>
-		      		<div class="form-group">
-					    <label for="exampleInputEmail1">职位名称</label>
-					    <input type="text" class="form-control" id="jobname" placeholder="输入职位名">
+					    <label for="exampleInputEmail1">用户名</label>
+					    <input type="text" class="form-control" readonly id="username" placeholder="输入新名称">
 					</div>
 					<div class="form-group">
-					    <label for="exampleInputEmail1">公司名称</label>
-					    <input type="text" class="form-control" id="cpname" placeholder="输入公司名称">
+					    <label for="exampleInputEmail1">密码</label>
+					    <input type="password" class="form-control" id="userpsw" placeholder="如需修改密码请填写">
 					</div>
 					<div class="form-group">
-					    <label for="exampleInputEmail1">工作经验</label>
-					    <input type="text" class="form-control" id="jobexp" placeholder="输入工作经验">
+					    <label for="exampleInputEmail1">确认密码</label>
+					    <input type="text" class="form-control" id="userpsw_again" placeholder="再次输入密码">
 					</div>
 					<div class="form-group">
-					    <label for="exampleInputEmail1">职位类型</label>
-					    <input type="text" class="form-control" id="jobtype" placeholder="输入职位类型">
-					</div>
-					<div class="form-group">
-					    <label for="exampleInputEmail1">工作地点</label>
-					    <input type="text" class="form-control" id="jobstr" placeholder="输入工作地点">
-					</div>
-					<div class="form-group">
-					    <label for="exampleInputEmail1">岗位薪资</label>
-					    <input type="text" class="form-control" id="salary" placeholder="输入岗位薪资">
+					    <label for="exampleInputEmail1">用户邮箱</label>
+					    <input type="text" class="form-control" id="useremail" placeholder="输入新邮箱">
 					</div>
 		      	</form>
 		      </div>
 			 <div class="modal-footer">
-		        <button type="button" class="btn btn-primary" id="add_btn">提交</button>
 		        <button type="button" class="btn btn-primary" id="update_btn">确认修改</button>
 		      </div>
 		    </div>
@@ -89,15 +74,15 @@
 	<script type="text/html" id="listTemp">
     {{each list as item index}}
 		<tr class="add_">
-			<td class="userID">{{index._id}}</td>
+			<td class="userID">{{item._id}}</td>
 			<td class="username">{{item.username}}</td>
-			<td class="userpsw">{{item.pwd}}</td>
+			<td class="userpsw">******</td>
 			<td class="useremail">{{item.email}}</td>
 			<td><span class="update" data-id="{{item._id}}" data-toggle="modal" data-target="#job_box">修改</span><span class="del" data-id="{{item._id}}">删除</span></td>
 		</tr>
     {{/each}}
 </script>
-<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="jquery-1.12.4.min.js"></script>
 <script src="jquery.cookie.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="artTamplate.js"></script>
